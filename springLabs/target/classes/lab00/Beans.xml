@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="hello" class="lab00.HelloWorld" scope="singleton">
+		<property name="message" value="Hello, 大家好"></property>
+	</bean>
+	<bean id="hello2" class="lab00.HelloWorld" scope="singleton">
+		<property name="message" value="Hello, Spring"></property>
+	</bean>
+	<bean id="hello3" class="lab00.HelloWorld" scope="singleton">
+		<property name="message" value="Hello, Spring MVC"></property>
+	</bean>
+</beans>

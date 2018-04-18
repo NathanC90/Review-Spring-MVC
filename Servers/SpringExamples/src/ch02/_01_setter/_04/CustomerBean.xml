@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<bean id="tiger1" class="ch02._01_setter._04.pets.Tiger">
+		<property name="name" value="巧虎" />
+	</bean>
+	<bean id="tiger2" class="ch02._01_setter._04.pets.Tiger">
+		<property name="name" value="跳跳虎" />
+	</bean>
+	<bean id="mouse1" class="ch02._01_setter._04.pets.Mouse">
+		<property name="name" value="米老鼠" />
+	</bean>
+	<bean id="mouse2" class="ch02._01_setter._04.pets.Mouse">
+		<property name="name" value="米妮 " />
+	</bean>
+
+	<!-- Spring框架會幫我們產生以上的bean物件 -->
+	<bean id="customerBean" class="ch02._01_setter._04.CustomerBean">
+		<!-- 
+		下列標籤對應CustomerBean類別中的setName()方法，
+		注入之資料的資料型態為java.lang.String, value屬性指定要注入的值。 
+		-->
+		<property name="name" value="劉麗芳"/>
+
+
+		<!-- 注入的資料為java.util.Date -->
+		<property name="birthday">
+		    <bean class="java.sql.Date" factory-method="valueOf">
+				<constructor-arg value="1985-06-28" />
+			</bean>
+		</property>
+		
+        <!-- 下列標籤對應CustomerBean類別中的setHobby()方法， -->		
+		<!-- 注入之資料的資料型態為java.util.List -->
+		<property name="hobby">
+			<list>
+				<value>登山</value>
+				<value>聽音樂</value>
+				<value>看電影</value>
+			</list>
+		</property>
+		<!-- 注入之資料的資料型態為Array -->
+		<property name="talent">
+			<list>
+				<value>修電腦</value>
+				<value>開卡車</value>
+				<value>星座算命</value>
+			</list>
+		</property>
+		<!-- 注入之資料的資料型態為java.util.Map -->
+		<property name="pet">
+			<map>
+				<entry key='t1' value-ref="tiger1"></entry>
+				<entry key='t2' value-ref="tiger2"></entry>
+				<entry key='n1' value-ref="mouse1"></entry>
+				<entry key='n2' value-ref="mouse2"></entry>
+			</map>
+		</property>
+		<!-- 注入之資料的資料型態為java.lang.Long，注入的資料為null -->
+		<property name="nullObj"><null/></property>
+	</bean>
+</beans>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<!-- Setter: 注入字串與基本型態(int, double, boolean, char) -->
+    <!-- Setter: 注入資料的三種方式簡潔式、標準式、p-schema -->
+    <!-- 使用 p-schema 一定要加入下面的 p名稱空間  
+    xmlns:p="http://www.springframework.org/schema/p"
+     -->
+	<bean id="emp" class="ch02._01_setter._01.Employee">
+	    <!-- 注入  java.lang.String -->
+		<property name="name" value="孫凱諦" />
+		<!-- 注入  int -->
+		<property name="salary" value="37500" />
+		<!-- 注入  double -->
+		<property name="weight" value="65.3" />
+		<!-- 注入  boolean -->
+		<property name="married" value="false" />
+		<!-- 注入  char -->
+		<property name="code" value="A" />
+	</bean>
+	
+	<bean id="man" class="ch02._01_setter._01.Manager">
+	    <!-- 注入  java.lang.String -->
+		<property name="name">
+		   <value>張君雅</value>
+		</property>
+		<!-- 注入  int -->
+		<property name="salary">
+		   <value>58000</value>
+		</property>
+		<!-- 注入  double -->
+		<property name="weight" >
+		   <value>52.5</value>
+		</property>
+		<!-- 注入  boolean -->
+		<property name="married">
+		   <value>true</value>
+		</property>
+		<!-- 注入  char -->
+		<property name="code">
+		   <value>C</value>		
+		</property>
+		<!-- 注入  String -->
+		<property name="dedicatedPhoneNo">
+		   <value>02-55661122</value>		
+		</property>
+	</bean>
+	
+	<bean id="pre" class="ch02._01_setter._01.President"
+	   p:name="劉麗芳"
+	   p:salary="89000"
+	   p:weight="68.0"
+	   p:married="true"
+	   p:code="Z"
+	   p:dedicatedPhoneNo="02-55661001"
+	   p:dedicatedCarNo="AAA-1234"
+	   >
+	</bean>
+</beans>

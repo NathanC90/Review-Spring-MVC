@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd ">
+   <!-- 本組態檔使用<bean>就可進行CREATE TABLE與DROP TABLE-->
+   <bean id="connection"  class='java.sql.DriverManager' factory-method='getConnection'>
+       <constructor-arg index='0' value='jdbc:sqlserver://127.0.0.1:1433;DatabaseName=jspdb'/>
+       <constructor-arg index='1' value='sa'/>
+       <constructor-arg index='2' value='sa123456'/>
+   </bean>
+   <bean id="statement0"  factory-bean='connection' factory-method='prepareStatement'>
+       <constructor-arg value="IF OBJECT_ID('dbo.SpringMember', 'U') IS NOT NULL DROP TABLE dbo.SpringMember"/>
+   </bean>
+   <bean id="statement1"  factory-bean='connection' factory-method='prepareStatement'>
+       <constructor-arg value="CREATE TABLE SpringMember (pk INT PRIMARY KEY IDENTITY, userId 		VARCHAR(32),  password 	VARCHAR(32),  name 		VARCHAR(32),  email  		VARCHAR(50),  birthday	Date,  registerDate	DateTime NOT NULL DEFAULT GETDATE(),  experience  INTEGER ) "/>
+   </bean>
+   
+   <bean id="exec0"  factory-bean='statement0' factory-method='executeUpdate'>
+   </bean>
+   
+   <bean id="exec1"  factory-bean='statement1' factory-method='executeUpdate'>
+   </bean>
+</beans>

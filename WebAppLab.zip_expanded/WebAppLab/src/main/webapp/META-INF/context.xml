@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context displayName="Servlet 3.0 Web Application" docBase="MemberWebApp" path="/MemberWebApp" reloadable="true">
+  <!-- For Local Computer Only -->
+  <Resource name="jdbc/memberDB" type="javax.sql.DataSource"
+      username="sa" password="sa123456"
+      driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+      url="jdbc:sqlserver://127.0.0.1:1433;DatabaseName=JSPDB"
+      maxActive="8"
+      maxIdle="4"
+      maxWait="5000"
+    />
+
+</Context>
+
+<!-- PaaS Only  -->
+<!-- <Resource -->
+<!--     name="jdbc/memberDB" -->
+<!--     type="javax.sql.DataSource" -->
+<!--     auth="Container" -->
+<!--     driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver" -->
+<!--     url="jdbc:sqlserver://dbserver09600.database.windows.net:1433;databaseName=memberDB" -->
+<!--     username="memberuser@dbserver09600" -->
+<!--     password="L!st8210" /> -->

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd ">
+   <!-- 此類別可以換掉  DriverManagerDataSource
+      class="org.springframework.jdbc.datasource.SingleConnectionDataSource">
+      class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+      class="org.apache.commons.dbcp.BasicDataSource">
+    -->
+   <!-- Initialization for data source -->
+    <!-- 
+   <bean id="dataSource" 
+      class="org.apache.commons.dbcp.BasicDataSource">
+      <property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
+      <property name="url" 
+      value="jdbc:sqlserver://127.0.0.1:1433;DatabaseName=jspdb"/>
+      <property name="username" value="sa"/>
+      <property name="password" value="sa123456"/>
+      <property name="initialSize" value="5"/>
+      <property name="maxActive" value="10"/>
+   </bean>
+    -->
+    
+   <bean id="dataSource" 
+      class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+      <property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
+      <property name="url" 
+                value="jdbc:sqlserver://127.0.0.1:1433;DatabaseName=jspdb"/>
+      <property name="username" value="sa"/>
+      <property name="password" value="sa123456"/>
+   </bean>
+   <!-- 定義 Springframework提供的 JdbcTemplate bean -->
+   <bean id="jdbcTemplate" 
+      class="org.springframework.jdbc.core.JdbcTemplate">
+      <constructor-arg ref="dataSource" />  
+   </bean>
+   
+   <!-- 定義 memberJDBCTemplate Bean -->
+   <bean id="memberJDBCTemplate" 
+      class="ch02._01_setter._03.sqlserver.MemberJDBCTemplate">
+      <property name='jdbcTemplateObject' ref="jdbcTemplate" />    
+   </bean>
+      
+</beans>

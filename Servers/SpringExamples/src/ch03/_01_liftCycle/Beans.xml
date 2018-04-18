@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+  <!-- 
+    Spring元件之生命周期的方法是由<bean>標籤的init-method屬性與destroy-method
+          屬性來定義元件出生後與元件結束前，Spring容器所要呼叫的方法。 
+  -->
+	<bean id="hello" class="ch03._01_liftCycle.BeanLifeCycle" 
+	    init-method='init'  destroy-method='destroy'>
+		<property name="message" value="測試為期三天，正在進行中"/>
+	</bean>
+</beans>

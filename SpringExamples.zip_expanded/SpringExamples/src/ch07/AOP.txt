@@ -1,0 +1,110 @@
+在Spring程式中經由註釋來使用AspectJ的注意事項:
+0. Spring 2.0開始支援AspectJ API，可採用註釋或XML文件來定義AOP相關元素，是
+   Java陣營中，最完整，最流行的AOP框架。
+
+1. 在類別路徑中加入AspectJ類別庫: aopalliance.jar，aspectj.weaver.jar，
+   spring-aop.jar與spring-aspects.jar。
+   Maven: <!-- 執行AspectJ程式時會用之jar檔 -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aop</artifactId>
+			<version>4.3.9.RELEASE</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+			<version>1.5.4</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>1.8.10</version>
+		</dependency>
+
+		<dependency>
+			<groupId>aopalliance</groupId>
+			<artifactId>aopalliance</artifactId>
+			<version>1.0</version>
+		</dependency>
+   
+   
+2. 在組態檔的根元素<beans>中加入 aop 的名稱空間。
+   xmlns:aop="http://www.springframework.org/schema/aop"
+
+   // xmlns:context="http://www.springframework.org/schema/context"
+   // xmlns="http://www.springframework.org/schema/beans"
+   // 為基本需求
+
+3. 在組態檔中加入下列標籤來啟用AspectJ的註釋功能
+   <aop:aspectj-autoproxy>
+	  .	當IoC容器偵測到組態檔中有<aop:aspectj-autoproxy>標籤，它會自動為定義AspectJ切面
+		的Bean建立代理。
+
+4. 設計ㄧ個 AspectJ的Aspect類別
+	Step 1: 設計一Java類別，並利用註釋說明此類別為一個Aspect，同時它必須是受Spring IoC容器
+	控管的Bean元件，因此切面類別(Aspect)需用兩個註釋：@Component與@Aspect
+	
+	@Component
+	@Aspect
+	public class LoggingAspect {
+	
+	}
+
+	Step 2: 將橫切關注點抽象到切面(Aspect)類別中，成為切面類別內的方法(即成為Aspect的Advice)
+	               在類別內設計所需要Advice(before, after, ....)，同時說明此
+            Advice會在那些類別的那些方法執行之前(或之後，或丟出例外...)才要執行
+         	於切面類別(Aspect)定義各種Advice
+   			@Before         	前置通知
+   			@After				後置通知
+   			@AfterReturning		返回通知
+   			@AfterThrowing		例外通知
+   			@Around				環繞通知
+
+   
+5. 設計通知(Advice)
+
+   5-1 設計一個方法
+   5-2 於方法之前加入上面五種註釋
+   5-3 於註釋的小括弧內加上切入點表達式(PointCut Expression)
+		5-3-1 ("execution (* ch07._03_aspectj.ArithmeticCalculator.*(..))")
+			第一個 * 號表示任何存取修飾字與任何傳回值
+			ch07._03_aspectj.ArithmeticCalculator: 表示受監控的類別為ArithmeticCalculator
+			第二個 * 號表示該類別內的任何方法
+			.. 表示方法的參數個數不限制
+		5-3-2 ("execution (* ch07._03_aspectj.*.*(..))"): 表示 ch07._03_aspectj套件下的類別都受到監控			
+   5-4 於方法中加入JoinPoint型態的參數來得到與監控方法有關的細節，如方法名稱與呼叫方法時的參數
+   
+ch07._03_aspectj.LoggingAspect內也有許多說明
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+8. 完整的內容如下
+@Aspect   
+@Component
+public class LoggingAspect {
+	// 說明本方法為一個前置通知：在監控(即目標)方法開始執行之前，先執行此通知
+	// 注意：不可以寫出方法的形式參數的參數名
+	@Before("execution (public int ch07._03_aspectj.ArithmeticCalculator.*(..))")
+	public void beforeMethod(JoinPoint joinPoint){
+		String methodName = joinPoint.getSignature().getName();
+		List<Object> args = Arrays.asList(joinPoint.getArgs());
+		System.out.println("The method " + methodName + " begins with " + args);
+	}   
+}	
+--------------------------------------------------------------
+
+@Before("execution (public int ch07._03_aspectj.ArithmeticCalculator.*(..))")
+public void beforeMethod(JoinPoint joinPoint){
+   //....
+}
+前置通知表示監控方法執行之前要執行本方法
+  
+  
+@After("execution (public int ch07._03_aspectj.ArithmeticCalculator.*(..))")
+public void beforeMethod(JoinPoint joinPoint){
+   //....
+}
+後置通知表示監控方法執行之後，無論是否丟出例外，都要執行本通知。
+在後置通知中不能取得方法的傳回值。
+  

@@ -1,0 +1,76 @@
+/*
+   1. 由Spring 2.5版開始，我們可在Java類別內使用Annotation來說明本類別的組態資訊，以便讓Spring容器能夠
+               用來產生與裝配接受它控管的Bean。此方法將xml組態檔內的一個<bean>標籤要表達的資訊移到Java類別內的註釋。
+   
+   2. 若同時使用Annotation與 xml組態檔來做組態設定與裝配Bean，如果兩邊的設定發生衝突時， xml組態檔會
+      Override Annotation的設定(xml組態檔優於Annotation)。
+      
+   3. 在預設的情況下，Spring不會開啟『用Annotation來進行組態設定』此項功能，所以在xml組態檔內一定要編寫下列
+                敘述來開啟此項功能:
+      <context:annotation-config/>
+      
+               此外，xml組態檔內還要使用下列標籤通知Spring容器，請它掃描哪些套件(包括它們的所有子套件)，因為這些套件內含
+               有用Annotation來說明組態資訊的類別。如果有多個套件需要掃描，用逗點隔開這些套件。
+      <context:component-scan base-package="ch02Anno._00, ch01" />
+      
+      範例如下:      
+       
+   <?xml version="1.0" encoding="UTF-8"?>
+
+  <beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+   <context:annotation-config/>  
+   <!-- 上面一行通知Spring，本程式要使用Annotation。由此加入bean的定義  -->
+   
+   <context:component-scan base-package="ch02Anno._00, ch01" />
+  </beans>
+   
+  4. 要讓Spring控管之『Java類別』，它的類別宣告的前一行必須加上下列幾種Stereotype Annotation:   
+     @Component(value="toFile")  或 @Component("toFile") 
+             表示本類別是一個要接受Spring控管的Bean。Bean的id可以透過value屬性指定。
+     
+             以下三種都是特殊的@Component           
+     @Repository 
+             用在與資料儲存(Persistence)有關的DAO類別。用此Repository修飾的類別如果發生
+     SQLException，Spring會將它轉換為DataAccessException。
+      
+     @Service
+             用在與資料庫無關的企業邏輯類別。
+               
+     @Controller
+             用在Spring MVC的Controller類別。               
+               
+  5. 注入Bean的屬性值: @Autowired，@Resource，@Value
+  
+     @Autowired(自動裝配): 可用在屬性、Setter、建構子或一般的方法。Spring會在它控管的所有Bean中，尋找
+             型態相同的Bean物件來注入@Autowired所修飾的屬性、Setter、建構子或一般的方法(By Type)。
+             如果讓Spring找到有兩個型態相同的Bean物件，Spring會因為無法區分而丟出例外。
+             
+             對Bean的屬性或Setter做自動裝配時，Bean一定要有預設建構子。
+             對Bean的建構子做自動裝配時，Spring會參考建構子之參數的名稱來進行自動裝配。
+             
+     @Resource: 它會尋找Bean的id與性質名稱相同的Bean來注入(By Name)。
+     @Value: 可用在參數上, 直接將值注入到建構子的參數內。     
+     
+  6. 與生命週期有關的方法:    
+     @PostConstruct: 與生命週期有關的方法，對應xml組態檔的init-method
+     @PreDestroy: 與生命週期有關的方法，對應xml組態檔的destroy-method     
+
+  7. 與有效範圍有關的方法:
+     @Scope("prototype"): 設定Bean的有效範圍為prototype
+     @Scope("singleton"): 設定Bean的有效範圍為singleton
+     
+ *. 使用@Autowired與@Resource的注意事項：
+             對Bean的屬性或Setter做Autowired時，Bean一定要有預設建構子
+             不能讓Spring找到兩個相同型態的物件，Spring將無法區分而丟出例外，
+             對Bean的建構子做Autowired時，如果Spring找到兩個相同型態的物件， 
+     Spring會尋找是否有與建構子之參數的名稱相同的物件，如果找到，則自動進行Autowired，
+            如果找不到，則丟出例外。          
+                   
+*/    

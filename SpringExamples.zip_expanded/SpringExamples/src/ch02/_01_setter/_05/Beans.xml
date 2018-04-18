@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="dateFormat" class="java.text.SimpleDateFormat">
+		<constructor-arg value="yyyy-MM-dd" />
+	</bean>
+	<bean id="godFather" class="ch02._01_setter._05.Movie">
+	    <!-- 注入  java.lang.String -->
+		<property name="title" value="God Father" />
+		<!-- 注入  java.util.Date -->
+		<property name="premiere" >
+		    <bean factory-bean="dateFormat" factory-method="parse">
+				<constructor-arg value="1977-12-25" />
+			</bean>
+		</property>
+		<!-- 注入  java.sql.Date -->
+		<property name="actionDate" >
+		    <bean class="java.sql.Date" factory-method="valueOf">
+				<constructor-arg value="1971-03-29" />
+			</bean>
+		</property>
+		<!-- 注入  java.sql.Time -->
+		<property name="movieRuntime" >
+		    <bean class="java.sql.Time" factory-method="valueOf">
+				<constructor-arg value="02:55:00" />
+			</bean>
+		</property>
+		<!-- 注入  java.sql.Timestamp -->
+		<property name="logtime"  >
+		    <bean class="java.sql.Timestamp" >
+				<constructor-arg value="#{T(java.lang.System).currentTimeMillis()}" />
+			</bean>
+		</property>
+		<!-- 注入『今天日期』  java.sql.Date 方法一  -->
+		 
+		<property name="today"  >
+		    <bean class="java.util.Date" />
+		</property>
+		
+		<!-- 注入『今天日期』  java.sql.Date 方法二  -->
+		<!-- 
+		<property name="today" ref='today' />
+		 -->
+	</bean>
+	<bean name='today' class="java.util.Date" />
+</beans>
+
+
+
+
+<!-- ClassName.valueOf(參數): 將參數轉換為本方法所屬類別的物件 
+    int n = 100; 要轉換為字串物件 ==>String.valueOf(n);
+    "1980-12-20"; 要轉換為java.sql.Date ==>java.sql.DatevalueOf("1980-12-20");
+    
+    
+
+
+-->
