@@ -1,4 +1,4 @@
-﻿package com.web.store.model;
+package com.web.store.model;
 
 import java.io.Serializable;
 import java.sql.Blob;
