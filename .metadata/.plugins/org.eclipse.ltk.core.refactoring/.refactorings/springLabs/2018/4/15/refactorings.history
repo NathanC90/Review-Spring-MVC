@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Move element &apos;Beans.xml&apos; to &apos;springLabs/src/main/java/lab00&apos;&#x0D;&#x0A;- Original project: &apos;springLabs&apos;&#x0D;&#x0A;- Destination element: &apos;springLabs/src/main/java/lab00&apos;&#x0D;&#x0A;- Original element: &apos;Beans.xml&apos;&#x0D;&#x0A;- Update references to refactored element" description="Move file" destination="/src\/main\/java&lt;lab00" element1="src/main/java/Beans.xml" files="1" flags="589830" folders="0" id="org.eclipse.jdt.ui.move" policy="org.eclipse.jdt.ui.moveResources" qualified="false" references="true" stamp="1523344273807" units="0" version="1.0"/>
-</session>

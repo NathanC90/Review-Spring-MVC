@@ -1,8 +1,0 @@
-spring.addProduct.form.addProductData.label=\u65B0\u589E
-spring.addProduct.form.title.label=Title
-spring.addProduct.form.author.label=Author
-spring.addProduct.form.category.label=Category
-spring.addProduct.form.price.label=Price
-spring.addProduct.form.bookNo.label=Book No
-spring.addProduct.form.bookCompany.label=Book Company
-spring.addProduct.form.submit.label=Submit
