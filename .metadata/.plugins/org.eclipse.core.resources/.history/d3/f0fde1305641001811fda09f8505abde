@@ -1,0 +1,6 @@
+package com.web.store.service;
+
+public interface ProductService {
+	List<BookBean> getAllProducts();
+
+}

@@ -1,0 +1,10 @@
+package com.web.store.exception;
+
+public class ProductNotFoundException extends RuntimeException {
+	Integer bookId;
+	
+	public ProductNotFoundException(Integer bookId) {
+		
+	}
+
+}

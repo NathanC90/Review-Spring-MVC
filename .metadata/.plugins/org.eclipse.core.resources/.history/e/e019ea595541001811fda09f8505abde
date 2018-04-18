@@ -1,0 +1,5 @@
+package com.web.store.repository.impl;
+
+public class HibernateProductRepository {
+
+}

@@ -1,0 +1,11 @@
+package com.web.store.repository;
+
+import java.util.List;
+
+import com.web.store.model.BookBean;
+
+public interface ProductRepository {
+	List<BookBean> getAllProducts();
+	void updateStock(int productId, int newQuantity);
+
+}

@@ -1,0 +1,5 @@
+package com.web.store.controller;
+
+public class ProductController {
+
+}

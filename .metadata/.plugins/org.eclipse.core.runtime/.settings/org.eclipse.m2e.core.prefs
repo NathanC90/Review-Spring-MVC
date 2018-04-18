@@ -1,0 +1,6 @@
+eclipse.m2.defaultRuntime=maven3
+eclipse.m2.runtimes=maven3
+eclipse.m2.runtimesNodes/maven3/location=C\:\\sts-bundle\\maven3
+eclipse.m2.runtimesNodes/maven3/type=EXTERNAL
+eclipse.m2.userSettingsFile=C\:\\sts-bundle\\maven3\\conf\\settings.xml
+eclipse.preferences.version=1
